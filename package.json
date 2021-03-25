@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/adalbertorsilva/dynamodb-stream-to-elasticsearch/issues"
   },
-  "homepage": "https://github.com/adalbertorsilva/dynamodb-stream-to-elasticsearch#readme"
+  "homepage": "https://github.com/adalbertorsilva/dynamodb-stream-to-elasticsearch#readme",
+  "devDependencies": {
+    "serverless-offline": "^6.8.0"
+  }
 }
