@@ -1,0 +1,20 @@
+{
+  "name": "dynamodb-stream-to-elasticsearch",
+  "version": "1.0.0",
+  "description": "Concept proof to make a stream from a dynamodb to elastisearch",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adalbertorsilva/dynamodb-stream-to-elasticsearch.git"
+  },
+  "keywords": [],
+  "author": "Adalberto Silva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adalbertorsilva/dynamodb-stream-to-elasticsearch/issues"
+  },
+  "homepage": "https://github.com/adalbertorsilva/dynamodb-stream-to-elasticsearch#readme"
+}
