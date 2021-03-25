@@ -1,12 +1,22 @@
 'use strict';
+require('dotenv').config();
+const { createJob } = require('./create-job');
+const faker = require('faker');
 
-module.exports.hello = async event => {
+module.exports.createJob = async () => {
+
+  const job = {
+    id: faker.random.number(),
+    name: faker.name.jobTitle(),
+  };
+
+  await createJob(job);
+
   return {
     statusCode: 200,
     body: JSON.stringify(
       {
-        message: 'Go Serverless v1.0! Your function executed successfully!',
-        input: event,
+        message: 'Job Created!',
       },
       null,
       2
