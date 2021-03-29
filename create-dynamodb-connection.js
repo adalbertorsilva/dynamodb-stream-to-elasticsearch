@@ -11,4 +11,6 @@ const createDynamoDbConnection = () => {
     return new DynamoDB.DocumentClient(options);
 };
 
+//Comentário milgrau
+
 module.exports = { createDynamoDbConnection };

@@ -3,6 +3,20 @@ require('dotenv').config();
 const { createJob } = require('./create-job');
 const faker = require('faker');
 
+module.exports.streamToElasticsearch = (event) => {
+  console.log('STREAM EVENT --> ', JSON.stringify(event.Records[0].dynamodb, null, 2));
+  return {
+    statusCode: 200,
+    body: JSON.stringify(
+      {
+        message: 'Stream processed',
+      },
+      null,
+      2
+    ),
+  };
+}
+
 module.exports.createJob = async () => {
 
   const job = {

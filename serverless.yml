@@ -1,11 +1,9 @@
 service: dynamodb-stream-to-elasticsearch
 
-frameworkVersion: '2'
-
 provider:
   name: aws
   runtime: nodejs12.x
-
+  
 functions:
   create-job:
     handler: handler.createJob
@@ -15,20 +13,41 @@ functions:
           method: post
           path: /create-job
 
+  stream-to-elasticsearch:
+    handler: handler.streamToElasticsearch
+    events:
+      - stream:
+          type: dynamodb
+          batchSize: 1
+          enabled: true
+          arn: { "Fn::GetAtt": ["usersTable", "StreamArn"] }
+            # Fn::GetAtt:
+            # - usersTable
+            # - StreamArn
+
 resources:
   - ${file(./dynamodb.yml)}
-  - ${file(./elasticsearch.yml)}
+  # - ${file(./elasticsearch.yml)}
 
 custom:
   dynamodb:
     stages:
       - dev
     start:
+      port: 8000
       migrate: true
+  dynamodbStream:
+    host: localhost
+    port: 8000
+    streams:
+      - table: jobs-table
+        functions:
+          - stream-to-elasticsearch
 
 plugins:
   - serverless-dynamodb-local
   - serverless-dotenv-plugin
+  - serverless-plugin-offline-dynamodb-stream
   - serverless-offline
 
 
