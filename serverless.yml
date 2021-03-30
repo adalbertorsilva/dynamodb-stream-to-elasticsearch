@@ -15,19 +15,16 @@ functions:
 
   stream-to-elasticsearch:
     handler: handler.streamToElasticsearch
+    timeout: 10
     events:
       - stream:
           type: dynamodb
           batchSize: 1
           enabled: true
-          arn: { "Fn::GetAtt": ["usersTable", "StreamArn"] }
-            # Fn::GetAtt:
-            # - usersTable
-            # - StreamArn
-
+          tableName: jobs-table
 resources:
   - ${file(./dynamodb.yml)}
-  # - ${file(./elasticsearch.yml)}
+  - ${file(./elasticsearch.yml)}
 
 custom:
   dynamodb:
@@ -36,18 +33,20 @@ custom:
     start:
       port: 8000
       migrate: true
-  dynamodbStream:
-    host: localhost
-    port: 8000
-    streams:
-      - table: jobs-table
-        functions:
-          - stream-to-elasticsearch
+  serverless-offline-dynamodb-streams:
+    apiVersion: '2013-12-02'
+    endpoint: http://0.0.0.0:8000
+    region: eu-west-1
+    accessKeyId: root
+    secretAccessKey: root
+    skipCacheInvalidation: false
+    readInterval: 500
+
 
 plugins:
   - serverless-dynamodb-local
   - serverless-dotenv-plugin
-  - serverless-plugin-offline-dynamodb-stream
+  - serverless-offline-dynamodb-streams
   - serverless-offline
 
 
